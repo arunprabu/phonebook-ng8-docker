@@ -5,24 +5,24 @@ FROM node:12.16-alpine3.11 as builder
 COPY package.json package-lock.json ./
 
 # Install the dependencies and make the folder
-RUN npm install && mkdir /phone-book && mv ./node_modules ./phone-book
+RUN npm install && mkdir /phonebook && mv ./node_modules ./phonebook
 
-WORKDIR /phone-book
+WORKDIR /phonebook
 
 COPY . .
 
 # Build the project and copy the files
-RUN npm run ng build -- --deploy-url=/phone-book/ --prod
+RUN npm run ng build -- --deploy-url=/phonebook/ --prod
 
 FROM nginx:alpine
 
-COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 ## Remove default nginx index page
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy from the stahg 1
-COPY --from=builder /phone-book/dist /usr/share/nginx/html
+COPY --from=builder /phonebook/dist /usr/share/nginx/html
 
 EXPOSE 4200 80
 
