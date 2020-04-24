@@ -12,7 +12,7 @@ WORKDIR /phonebook
 COPY . .
 
 # Build the project and copy the files
-RUN npm run ng build -- --deploy-url=/phonebook/ --prod
+RUN npm run ng build --prod --base-href /phonebook/ 
 
 FROM nginx:alpine
 
