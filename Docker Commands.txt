@@ -9,3 +9,8 @@ docker ps -a    (to see all docker containers )
 
 docker exec -it <container_id> bin/sh 
 
+docker push arunvijayarengan/phonebook-ng8-docker:tagname
+
+
+docker tag phonebook-ng8-docker:latest arunvijayarengan/phonebook-ng8-docker:latest
+docker push arunvijayarengan/phonebook-ng8-docker:latest
